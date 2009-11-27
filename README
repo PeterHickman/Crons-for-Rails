@@ -1,0 +1,35 @@
+Crons
+=====
+
+If you have some tasks that need to be run periodically for your
+site to function (cron scripts in the unix parlance) then this
+plugin will add some tasks to your Rakefile and Capfile to
+automate the installation of those scripts when you deploy.
+
+This assumes that you are using a unix like os such as Linux
+or OSX and that your cron program understands the paul Vixie
+extensions such as @daily, @weekly etc.
+
+Example
+=======
+
+In your scripts directory create the following directories
+
+<app>/scripts/crons
+              |----/daily
+              |----/weekly
+              |----/hourly
+              |----/monthly
+
+Place the unix shell scripts or Ruby scripts in the appropriate
+directories. You can omit directories that you do not require.
+
+The unix shell scripts will be added to the users crontab so:
+
+@daily (/bin/sh /path/to/app/script/crons/daily/db_backup.sh)
+
+The Ruby scripts will be added to the users crontab so:
+
+@daily (cd /path/to/app ; /usr/local/bin/ruby script/runner -e production script/crons/daily/purge_sessions.rb)
+
+Copyright (c) 2009 Peter Hickman <peterhickman386@googlemail.com>, released under the MIT license
