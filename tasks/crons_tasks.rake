@@ -7,6 +7,8 @@ namespace :crons do
       File.open("#{RAILS_ROOT}/script/crons/other.txt").each do |f|
         text << f
       end
+      # Just incase there is no line ending on the file
+      text << "\n"
     end
 
     rb_template = "@%s (cd #{RAILS_ROOT} ; /usr/local/bin/ruby script/runner -e production script/crons/%s/%s)\n"
