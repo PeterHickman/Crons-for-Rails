@@ -41,7 +41,7 @@ slots and need to be run at other intervals. You might also need to
 set headers in your crontab (if you don't understand don't worry).
 
 To do this the plugin looks for a file <app>/scripts/crons/other.txt
-which it will prepend to the crontab. So you can   set you headers here
+which it will prepend to the crontab. So you can set your headers here
 and set the other scripts that will need running.
 
 Put the shell and Ruby scripts that are run from the other.txt file in
