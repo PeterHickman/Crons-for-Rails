@@ -3,6 +3,12 @@ namespace :crons do
   task :install do
     text = ''
 
+    if File.exist?("#{RAILS_ROOT}/script/crons/other.txt")
+      File.open("#{RAILS_ROOT}/script/crons/other.txt").each do |f|
+        text << f
+      end
+    end
+
     rb_template = "@%s (cd #{RAILS_ROOT} ; /usr/local/bin/ruby script/runner -e production script/crons/%s/%s)\n"
     sh_template = "@%s (/bin/sh %s)\n"
 
@@ -16,6 +22,8 @@ namespace :crons do
         text << rb_template % ['monthly', 'monthly', File.basename(file)]
       elsif file =~ /crons\/weekly/
         text << rb_template % ['weekly', 'weekly', File.basename(file)]
+      elsif file =~ /crons\/other/
+        # Ignore the scripts in here
       else
         puts "Unknown file #{file}"
       end
@@ -31,6 +39,8 @@ namespace :crons do
         text << sh_template % ['monthly', file]
       elsif file =~ /crons\/weekly/
         text << sh_template % ['weekly', file]
+      elsif file =~ /crons\/other/
+        # Ignore the scripts in here
       else
         puts "Unknown file #{file}"
       end

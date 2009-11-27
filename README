@@ -7,7 +7,7 @@ plugin will add some tasks to your Rakefile and Capfile to
 automate the installation of those scripts when you deploy.
 
 This assumes that you are using a unix like os such as Linux
-or OSX and that your cron program understands the paul Vixie
+or OSX and that your cron program understands the Paul Vixie
 extensions such as @daily, @weekly etc.
 
 Example
@@ -20,6 +20,7 @@ In your scripts directory create the following directories
               |----/weekly
               |----/hourly
               |----/monthly
+              |----/other
 
 Place the unix shell scripts or Ruby scripts in the appropriate
 directories. You can omit directories that you do not require.
@@ -31,5 +32,19 @@ The unix shell scripts will be added to the users crontab so:
 The Ruby scripts will be added to the users crontab so:
 
 @daily (cd /path/to/app ; /usr/local/bin/ruby script/runner -e production script/crons/daily/purge_sessions.rb)
+
+Awkward stuff
+=============
+
+Some tasks will not fit into the nice clean hourly, daily, weekly
+slots and need to be run at other intervals. You might also need to
+set headers in your crontab (if you don't understand don't worry).
+
+To do this the plugin looks for a file <app>/scripts/crons/other.txt
+which it will prepend to the crontab. So you cat set you headers here
+and set the other scripts that will need running.
+
+Put the shell and Ruby scripts that are run from the other.txt file in
+the <app>/scripts/crons/other directory for safe keeping
 
 Copyright (c) 2009 Peter Hickman <peterhickman386@googlemail.com>, released under the MIT license
